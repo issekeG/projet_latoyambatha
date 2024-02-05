@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="container">
+
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 d-flex flex-column align-items-center justify-content-center">
+
+                            <div class="card mb-3">
+
+                                <div class="card-body">
+
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Add User</h5>
+                                        <p class="text-center small">Enter a personal details</p>
+                                    </div>
+
+                                    {{ form_errors(registrationForm) }}
+
+                                    {{ form_start(registrationForm) }}
+                                    {{ form_row(registrationForm.firstname) }}
+                                    {{ form_row(registrationForm.lastname) }}
+                                    {{ form_row(registrationForm.email) }}
+                                    {{ form_row(registrationForm.plainPassword, {
+                                        label: 'Password'
+                                    }) }}
+                                    <label class="form-label mt-3 mb-2">Roles : </label>
+                                    <div class="row justify-content-center align-content-center mb-4 mt-0">
+                                        <div class="form-group">
+                                            {{ form_row(registrationForm.roles.0, {'label_attr': {'class': 'form-check-label custom-class-3 pe-3'}, 'attr': {'class': 'form-check-input'}}) }}
+
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form_row(registrationForm.roles.1, {'label_attr': {'class': 'form-check-label custom-class-3 pe-3'}, 'attr': {'class': 'form-check-input'}}) }}
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100" type="submit">Add User</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">Already have an account ? <a href="{{ path("app_login") }}">Log in</a></p>
+                                    </div>
+
+
+                                    {{ form_end(registrationForm) }}
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+{% endblock %}

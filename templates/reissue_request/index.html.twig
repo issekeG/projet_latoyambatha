@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReissueRequest index{% endblock %}
+
+{% block body %}
+    <h1>ReissueRequest index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reason</th>
+                <th>Name</th>
+                <th>IdNumber</th>
+                <th>GiftCardNumber</th>
+                <th>OriginalIssuingStore</th>
+                <th>DateOfPurchase</th>
+                <th>TimeOfPurchase</th>
+                <th>ValueLoadedOnCard</th>
+                <th>FurtherDetails</th>
+                <th>RequestedBy</th>
+                <th>RequestedBySignature</th>
+                <th>RequestedDate</th>
+                <th>AuthorizedBy</th>
+                <th>AuthorizedSignature</th>
+                <th>AuthorizedDate</th>
+                <th>NewEvoucherReference</th>
+                <th>NewEvoucherDate</th>
+                <th>CardLinkedTo</th>
+                <th>DeliveredTo</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reissue_request in reissue_requests %}
+            <tr>
+                <td>{{ reissue_request.id }}</td>
+                <td>{{ reissue_request.reason }}</td>
+                <td>{{ reissue_request.name }}</td>
+                <td>{{ reissue_request.idNumber }}</td>
+                <td>{{ reissue_request.giftCardNumber }}</td>
+                <td>{{ reissue_request.originalIssuingStore }}</td>
+                <td>{{ reissue_request.dateOfPurchase ? reissue_request.dateOfPurchase|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.timeOfPurchase ? reissue_request.timeOfPurchase|date('H:i:s') : '' }}</td>
+                <td>{{ reissue_request.valueLoadedOnCard }}</td>
+                <td>{{ reissue_request.furtherDetails }}</td>
+                <td>{{ reissue_request.requestedBy }}</td>
+                <td>{{ reissue_request.requestedBySignature }}</td>
+                <td>{{ reissue_request.requestedDate ? reissue_request.requestedDate|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.authorizedBy }}</td>
+                <td>{{ reissue_request.authorizedSignature }}</td>
+                <td>{{ reissue_request.authorizedDate ? reissue_request.authorizedDate|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.newEvoucherReference }}</td>
+                <td>{{ reissue_request.newEvoucherDate ? reissue_request.newEvoucherDate|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.cardLinkedTo }}</td>
+                <td>{{ reissue_request.deliveredTo }}</td>
+                <td>{{ reissue_request.status }}</td>
+                <td>
+                    <a href="{{ path('app_reissue_request_show', {'id': reissue_request.id}) }}">show</a>
+                    <a href="{{ path('app_reissue_request_edit', {'id': reissue_request.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="22">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reissue_request_new') }}">Create new</a>
+{% endblock %}

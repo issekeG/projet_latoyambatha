@@ -1,0 +1,162 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ReissueRequest{% endblock %}
+
+{% block body %}
+
+  <body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="{{ path('app_reissue_request_index') }}" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">Dashboard</span>
+      </a>
+    </div><!-- End Logo -->
+
+
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{{ path('app_reissue_request_index') }}">
+          <i class="bi bi-grid"></i>
+          <span>All status</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('dashboard_status', {'status': 'Pending'}) }}">
+          <i class="bi bi-menu-button-wide"></i><span>Pending</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link "  href="{{ path('dashboard_status', {'status': 'Approved'}) }}">
+          <i class="bi bi-journal-text"></i><span>Approve</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link " href="{{ path('dashboard_status', {'status': 'Rejected'}) }}">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Reject</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link " href="{{ path('dashboard_status', {'status': 'sent out'}) }}">
+          <i class="bi bi-layout-text-window-reverse"></i><span>sent out</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+      </li>
+
+
+
+
+
+    </ul>
+
+  </aside>
+
+  <main id="main" class="main">
+
+    <div class="col-12">
+      <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+
+          <table class="table table-borderless datatable">
+            <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Name</th>
+              <th scope="col">Id_Number</th>
+              <th scope="col">Gift_CardNumber</th>
+              <th scope="col">Original_Issuing_Store</th>
+              <th scope="col">Date_Of_Purchase</th>
+              <th scope="col">Time_Of_Purchase</th>
+              <th scope="col">Value_Loaded_On_Card</th>
+              <th scope="col">Further_Details</th>
+              <th scope="col">Requested_By</th>
+              <th scope="col">Requested_By_Signature</th>
+              <th scope="col">Requested_Date</th>
+              <th scope="col">Authorized_By</th>
+              <th scope="col">Authorized_Signature</th>
+              <th scope="col">Authorized_Date</th>
+              <th scope="col">New_Evoucher_Reference</th>
+              <th scope="col">New_Evoucher_Date</th>
+              <th scope="col">CardLinked_To</th>
+              <th scope="col">Delivered_To</th>
+              <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reissue_request in reissue_requests %}
+              <tr>
+                <td >{{ reissue_request.id }}</td>
+                <td>{{ reissue_request.reason }}</td>
+                <td>{{ reissue_request.name }}</td>
+                <td>{{ reissue_request.idNumber }}</td>
+                <td>{{ reissue_request.giftCardNumber }}</td>
+                <td>{{ reissue_request.originalIssuingStore }}</td>
+                <td>{{ reissue_request.dateOfPurchase ? reissue_request.dateOfPurchase|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.timeOfPurchase ? reissue_request.timeOfPurchase|date('H:i:s') : '' }}</td>
+                <td>{{ reissue_request.valueLoadedOnCard }}</td>
+                <td>{{ reissue_request.furtherDetails }}</td>
+                <td>{{ reissue_request.requestedBy }}</td>
+                <td>{{ reissue_request.requestedBySignature }}</td>
+                <td>{{ reissue_request.requestedDate ? reissue_request.requestedDate|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.authorizedBy }}</td>
+                <td>{{ reissue_request.authorizedSignature }}</td>
+                <td>{{ reissue_request.authorizedDate ? reissue_request.authorizedDate|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.newEvoucherReference }}</td>
+                <td>{{ reissue_request.newEvoucherDate ? reissue_request.newEvoucherDate|date('Y-m-d') : '' }}</td>
+                <td>{{ reissue_request.cardLinkedTo }}</td>
+                <td>{{ reissue_request.deliveredTo }}</td>
+
+                {% if 'approv' in reissue_request.status|lower %}
+
+                  <td><a href="{{ path('app_reissue_request_edit', {'id': reissue_request.id}) }}"><span class="badge bg-success">{{ reissue_request.status }}</span></a></td>
+                {% elseif 'pend' in reissue_request.status|lower|lower %}
+                  <td><a href="{{ path('app_reissue_request_edit', {'id': reissue_request.id}) }}"><span class="badge bg-warning">{{ reissue_request.status }}</span></a></td>
+                {% elseif 'rejec' in reissue_request.status|lower %}
+                  <td><a href="{{ path('app_reissue_request_edit', {'id': reissue_request.id}) }}"><span class="badge bg-danger">{{ reissue_request.status }}</span></a></td>
+                {% elseif 'sent' in reissue_request.status|lower %}
+                  <td><a href="{{ path('app_reissue_request_edit', {'id': reissue_request.id}) }}"><span class="badge bg-info">{{ reissue_request.status }}</span></a></td>
+
+
+                {% endif %}
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="22">no records found</td>
+              </tr>
+            {% endfor %}
+
+
+
+
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div>
+
+
+  </main>
+
+
+  </body>
+
+{% endblock %}
+
+
+
